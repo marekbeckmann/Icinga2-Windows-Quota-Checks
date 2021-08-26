@@ -27,6 +27,7 @@ function get-quota() {
     $quota = Get-FsrmQuota -Path $path
     $quotaSize = $quota.Size
     $quotaUsage = $quota.Usage
+    if ($null -eq $threshold) { $threshold = 80 }
     if ($quotaUsage -gt ($quotaSize * ($threshold / 100)) -and ($null -ne $path)) {
         return "Quota used over $threshold %"
         exit 0
